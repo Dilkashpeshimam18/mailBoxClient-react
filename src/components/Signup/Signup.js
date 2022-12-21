@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import './Signup.css'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
-    //AIzaSyBbr840gxPXx5wIRgO2KsmQYQpwHJKG91s
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const navigate = useNavigate()
 
     const isPasswordConfirmed = () => {
         if (password && confirmPassword && password === confirmPassword) return true;
@@ -38,6 +39,7 @@ const Signup = () => {
                     setConfirmPassword('')
 
                     alert('Signup Successful!')
+                    navigate('/login')
                 }
             }
         } catch (err) {
