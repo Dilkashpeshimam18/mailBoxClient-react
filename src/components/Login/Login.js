@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { authActions } from '../../store/slice/auth-slice'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     const handleLogin = async (e) => {
         e.preventDefault()
         try {
@@ -30,6 +32,7 @@ const Login = () => {
                     let email = response.data.email
                     localStorage.setItem('token', token)
                     localStorage.setItem('email', email)
+                    dispatch(authActions.addToken(token))
                     alert('Login Successful!')
                     navigate('/')
 
