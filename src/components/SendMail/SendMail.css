@@ -1,0 +1,11 @@
+.sendMail {
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+}
+.sendMail__container3 {
+  margin-top: 60px;
+}
+.sendMail__subContainer {
+  padding: 2px;
+}
