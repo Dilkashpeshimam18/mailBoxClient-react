@@ -1,0 +1,22 @@
+.textEditor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+}
+.wrapper-class {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  width: 70%;
+  height: 500px;
+}
+.editor-class {
+  background-color: rgb(243, 243, 243);
+  padding: 1rem;
+  border: 1px solid #ccc;
+  max-height: 410px;
+}
+.toolbar-class {
+  border: 1px solid #ccc;
+}
