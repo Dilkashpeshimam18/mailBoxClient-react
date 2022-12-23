@@ -24,11 +24,11 @@ const Editor = () => {
         'list', 'bullet', 'indent',
 
     ]
-    const onChangeText = () => {
-        let editor = editorRef.getEditor();
-        let unprivilegedEditor = editorRef.makeUnprivilegedEditor(editor);
-        let inpText = unprivilegedEditor.getText();
-        setValue(inpText)
+
+    const onChange = (editor) => {
+        let text = editor.getText()
+        setValue(text)
+
     }
 
     useEffect(() => {
@@ -38,9 +38,9 @@ const Editor = () => {
     return (
         <div className='textEditor'>
             <ReactQuill theme="snow"
-                style={{ height: '400px' }}
-                value={value}
-                onChange={onChangeText}
+                style={{ height: '350px' }}
+                // value={value}
+                onChange={onChange}
                 modules={modules}
                 formats={formats}
                 ref={(el) => { editorRef = el }}
