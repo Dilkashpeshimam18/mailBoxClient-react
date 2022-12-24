@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Editor from '../TextEditor/Editor'
 import './SendMail.css'
 import { Button, Form } from 'react-bootstrap'
@@ -7,11 +7,16 @@ import ReactQuill from 'react-quill';
 import '../../../node_modules/react-quill/dist/quill.snow.css';
 import emailjs from '@emailjs/browser';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const SendMail = () => {
     const [email, setEmail] = useState('')
     const [subject, setSubject] = useState('')
     const [value, setValue] = useState('');
     const [isSent, setIsSent] = useState(false)
+    const token = useSelector((state) => state.auth.token)
+    const navigate = useNavigate()
+
     const onChange = (content, delta, source, editor) => {
         let text = editor.getText()
         setValue(text)
@@ -25,7 +30,7 @@ const SendMail = () => {
                 subject: subject,
                 value: value
             }
-            let senderEmail = localStorage.getItem('userEmail')
+            let senderEmail = localStorage.getItem('email')
             let splittedEmail = senderEmail.split('@')
             senderEmail = splittedEmail[0]
 
@@ -64,6 +69,7 @@ const SendMail = () => {
             alert('Please fill all the fields!')
         }
     }
+
 
     return (
         <div className='sendMail'>

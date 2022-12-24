@@ -6,7 +6,7 @@ import SendMail from '../SendMail/SendMail'
 const Home = () => {
     return (
         <div className='home'>
-            <h1>Welcome to mail box client</h1>
+            <h1>COMPOSE </h1>
             <SendMail />
         </div>
     )
