@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import ReactQuill from 'react-quill';
 import '../../../node_modules/react-quill/dist/quill.snow.css';
-
-const Editor = ({ value, setValue, onChange }) => {
-    let editorRef = useRef()
-
+import { Quill } from 'react-quill';
+const Editor = ({ onChange, }) => {
+    let quillRef = useRef()
+    // editor.deleteText(setValue)
+    // let editorRef = quillRef.current.getEditor()
+    // console.log(editorRef)
+    // const unprivilegedEditor = quillRef.current.makeUnprivilegedEditor(editorRef);
     const modules = {
         toolbar: [
             [{ 'font': [] }],
@@ -14,6 +17,7 @@ const Editor = ({ value, setValue, onChange }) => {
             [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
         ],
     }
+
 
     const formats = [
         'font',
@@ -25,20 +29,16 @@ const Editor = ({ value, setValue, onChange }) => {
     ]
 
 
-
-    useEffect(() => {
-
-        console.log(value)
-    }, [value])
     return (
         <div className='textEditor'>
+
             <ReactQuill theme="snow"
                 style={{ height: '300px' }}
-                // value={value}
                 onChange={onChange}
                 modules={modules}
                 formats={formats}
-                ref={(el) => { editorRef = el }}
+                ref={quillRef}
+                id='editor'
             ></ReactQuill>
         </div>
 
