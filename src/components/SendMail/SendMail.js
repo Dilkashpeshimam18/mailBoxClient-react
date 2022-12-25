@@ -7,8 +7,10 @@ import ReactQuill from 'react-quill';
 import '../../../node_modules/react-quill/dist/quill.snow.css';
 import emailjs from '@emailjs/browser';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { emailActions } from '../../store/slice/email-slice';
+
 const SendMail = () => {
     const [email, setEmail] = useState('')
     const [subject, setSubject] = useState('')
@@ -16,7 +18,7 @@ const SendMail = () => {
     const [isSent, setIsSent] = useState(false)
     const token = useSelector((state) => state.auth.token)
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     const onChange = (content, delta, source, editor) => {
         let text = editor.getText()
         setValue(text)
@@ -26,18 +28,21 @@ const SendMail = () => {
     }
     const storeMail = async () => {
         try {
+            let senderEmail = localStorage.getItem('email')
+            let splittedEmail = senderEmail.split('@')
+            var splitted = email.split("@");
+            let receiverName = splitted[0].replace(/\./g, "")
             let mail = {
+                send_from: senderEmail,
+                send_to: email,
                 subject: subject,
                 value: value
             }
-            let senderEmail = localStorage.getItem('email')
-            let splittedEmail = senderEmail.split('@')
-            senderEmail = splittedEmail[0]
-
-            var splitted = email.split("@");
-            let receiverName = splitted[0]
+            console.log(mail)
+            dispatch(emailActions.addSendToEmail(receiverName))
+            localStorage.setItem('sendToEmail', receiverName)
             console.log(splitted[0] + "@" + splitted[1].replace(/\./g, ""));
-            const response = await axios.post(`https://newsday-io-default-rtdb.firebaseio.com/allMail/${senderEmail}/${receiverName}.json`, mail)
+            const response = await axios.post(`https://newsday-io-default-rtdb.firebaseio.com/allMail.json`, mail)
             console.log(response)
 
         } catch (err) {
