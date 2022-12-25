@@ -9,9 +9,17 @@ import {
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+
 const Sidebar = () => {
     const navigate = useNavigate()
+    const userMail = useSelector(state => state.email.userMail)
+
+    let unreadMessage = userMail.filter((mail) => {
+        return mail.read == false
+    }).length
+    console.log(unreadMessage)
     return (
         <div
             style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}
@@ -31,17 +39,41 @@ const Sidebar = () => {
                 <CDBSidebarContent className="sidebar-content">
                     <CDBSidebarMenu>
                         <NavLink exact to="/" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="columns">Inbox</CDBSidebarMenuItem>
+                            <CDBSidebarMenuItem icon="inbox">
+                                <Container>
+                                    <Row >
+                                        <Col >Inbox</Col>
+                                        <Col>{unreadMessage}</Col>
+                                    </Row>
+                                </Container>
+
+                            </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/tables" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="table">Unread</CDBSidebarMenuItem>
+                            <CDBSidebarMenuItem icon="table">
+                                <Container>
+                                    <Row>
+                                        <Col>Unread</Col>
+                                    </Row>
+                                </Container>
+                            </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/profile" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="user">Sent</CDBSidebarMenuItem>
+                            <CDBSidebarMenuItem icon="user">
+                                <Container>
+                                    <Row>
+                                        <Col>Sent</Col>
+                                    </Row>
+                                </Container>
+                            </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/analytics" activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="chart-line">
-                                Starred
+                                <Container>
+                                    <Row>
+                                        <Col>Starred</Col>
+                                    </Row>
+                                </Container>
                             </CDBSidebarMenuItem>
                         </NavLink>
 
@@ -52,7 +84,14 @@ const Sidebar = () => {
                             activeClassName="activeClicked"
                         >
                             <CDBSidebarMenuItem icon="exclamation-circle">
-                                Spam
+                                <Container>
+                                    <Row>
+                                        <Col>
+                                            Spam
+
+                                        </Col>
+                                    </Row>
+                                </Container>
                             </CDBSidebarMenuItem>
                         </NavLink>
                     </CDBSidebarMenu>

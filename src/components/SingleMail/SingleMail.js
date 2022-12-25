@@ -22,7 +22,7 @@ const SingleMail = () => {
             </Container>
             <Container>
                 <Row>
-                    <Col>
+                    <Col fluid>
                         <h3>{mail[0]?.subject}</h3>
                         <p>{mail[0]?.message}</p>
                     </Col>
