@@ -6,6 +6,8 @@ import './AllMail.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { emailActions } from '../../store/slice/email-slice';
 import { useNavigate } from 'react-router-dom'
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+
 const AllMail = () => {
     const dispatch = useDispatch()
     const userMail = useSelector((state) => state.email.userMail)
@@ -16,6 +18,7 @@ const AllMail = () => {
             let email = localStorage.getItem('email')
             const response = await axios.get('https://newsday-io-default-rtdb.firebaseio.com/allMail.json')
             let res = response.data
+            console.log(res)
             let data = []
             for (let key in res) {
                 data.push({
@@ -32,7 +35,6 @@ const AllMail = () => {
             let userReceivedEmail = data.filter((mail) => {
                 return mail.sendTo == email
             })
-
             dispatch(emailActions.addUserMail(userReceivedEmail))
 
 
@@ -42,6 +44,8 @@ const AllMail = () => {
         }
 
     }
+
+
     useEffect(() => {
         getUserMail()
     }, [])
@@ -53,13 +57,26 @@ const AllMail = () => {
                     return (
                         <ListGroup.Item
                             style={{ cursor: 'pointer' }}
-                            onClick={() => navigate('/inbox/' + mail.id)}
+                            onClick={() => {
+                                dispatch(emailActions.openRead())
+                                navigate('/inbox/' + mail.id)
+                            }}
                             className="d-flex listClass justify-content-between align-items-start "
 
                         >
-                            <div className="ms-2 me-auto">
-                                <div className="fw-bold">{mail.subject}</div>
-                                {mail.message}
+                            <div className="ms-2 me-auto data">
+                                {mail.read == false && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
+
+                                <div className='m-2'>
+                                    <div className="fw-bold">
+                                        {mail.subject}
+                                    </div>
+                                    <div>
+                                        {mail.message}
+
+                                    </div>
+                                </div>
+
                             </div>
 
                         </ListGroup.Item>
