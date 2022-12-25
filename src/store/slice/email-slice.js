@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialEmailState = {
-    sendToEmail: localStorage.getItem('sendToEmail') || ''
+    sendToEmail: localStorage.getItem('sendToEmail') || '',
+    userMail: []
 }
 
 
@@ -12,7 +13,11 @@ const EmailSlice = createSlice({
     reducers: {
         addSendToEmail(state, action) {
             state.sendToEmail = action.payload
+        },
+        addUserMail(state, action) {
+            state.userMail = action.payload
         }
+
     }
 })
 

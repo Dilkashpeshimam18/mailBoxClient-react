@@ -36,7 +36,8 @@ const SendMail = () => {
                 send_from: senderEmail,
                 send_to: email,
                 subject: subject,
-                value: value
+                value: value,
+                read: false
             }
             console.log(mail)
             dispatch(emailActions.addSendToEmail(receiverName))
