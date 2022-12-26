@@ -40,7 +40,7 @@ const Sidebar = () => {
                 <CDBSidebarContent className="sidebar-content">
                     <CDBSidebarMenu>
                         <NavLink exact to="/" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="inbox">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Inbox'))} icon="inbox">
                                 <Container>
                                     <Row >
                                         <Col >Inbox</Col>
@@ -51,7 +51,7 @@ const Sidebar = () => {
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/tables" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="table">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Unread'))} icon="table">
                                 <Container>
                                     <Row>
                                         <Col>Unread</Col>
@@ -69,7 +69,7 @@ const Sidebar = () => {
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/analytics" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="chart-line">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Starred'))} icon="chart-line">
                                 <Container>
                                     <Row>
                                         <Col>Starred</Col>
@@ -84,7 +84,7 @@ const Sidebar = () => {
                             target="_blank"
                             activeClassName="activeClicked"
                         >
-                            <CDBSidebarMenuItem icon="exclamation-circle">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Spam'))} icon="exclamation-circle">
                                 <Container>
                                     <Row>
                                         <Col>

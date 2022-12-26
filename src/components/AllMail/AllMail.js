@@ -12,6 +12,7 @@ const AllMail = () => {
     const dispatch = useDispatch()
     const userMail = useSelector((state) => state.email.userMail)
     const navigate = useNavigate()
+    const selectedTab = useSelector(state => state.home.isSeletedTab)
 
     const getUserMail = async () => {
         try {
@@ -31,10 +32,18 @@ const AllMail = () => {
                 })
             }
 
-            let userReceivedEmail = data.filter((mail) => {
-                return mail.sendTo == email
-            })
-            dispatch(emailActions.addUserMail(userReceivedEmail))
+            if (selectedTab == 'Inbox') {
+                let userReceivedEmail = data.filter((mail) => {
+                    return mail.sendTo == email
+                })
+                dispatch(emailActions.addUserMail(userReceivedEmail))
+            } else if (selectedTab == 'Sent') {
+                let userSentEmail = data.filter((mail) => {
+                    return mail.sendFrom == email
+                })
+                dispatch(emailActions.addAllSentMail(userSentEmail))
+            }
+
 
 
 
