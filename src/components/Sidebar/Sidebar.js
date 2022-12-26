@@ -10,16 +10,17 @@ import {
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Button, Container, Row, Col } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { handleIsSelectedTab } from '../../store/slice/home-slice';
 
 const Sidebar = () => {
     const navigate = useNavigate()
     const userMail = useSelector(state => state.email.userMail)
+    const dispatch = useDispatch()
 
     let unreadMessage = userMail.filter((mail) => {
         return mail.read == false
     }).length
-    console.log(unreadMessage)
     return (
         <div
             style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}
@@ -58,8 +59,8 @@ const Sidebar = () => {
                                 </Container>
                             </CDBSidebarMenuItem>
                         </NavLink>
-                        <NavLink exact to="/profile" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="user">
+                        <NavLink exact to="/sent-mail" activeClassName="activeClicked">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Sent'))} icon="user">
                                 <Container>
                                     <Row>
                                         <Col>Sent</Col>

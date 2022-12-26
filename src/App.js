@@ -7,6 +7,7 @@ import Home from './components/Home/Home';
 import Header from './components/Header/Header';
 import ComposeMail from './components/ComposeMail/ComposeMail';
 import SingleMail from './components/SingleMail/SingleMail';
+import AllSentMail from './components/AllSentMail/AllSentMail';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/compose' element={<ComposeMail />} />
         <Route path='/inbox/:id' element={<SingleMail />} />
+        <Route path='/sent-mail' element={<AllSentMail />} />
       </Routes>
     </div>
   );
