@@ -8,63 +8,13 @@ import { emailActions } from '../../store/slice/email-slice';
 import { useNavigate } from 'react-router-dom'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import DeleteIcon from '@mui/icons-material/Delete';
+import useMail from '../../hooks/useMail';
 const AllMail = () => {
     const dispatch = useDispatch()
     const userMail = useSelector((state) => state.email.userMail)
     const navigate = useNavigate()
     const selectedTab = useSelector(state => state.home.isSeletedTab)
-
-    const getUserMail = async () => {
-        try {
-            let email = localStorage.getItem('email')
-            const response = await axios.get('https://newsday-io-default-rtdb.firebaseio.com/allMail.json')
-            let res = response.data
-            let data = []
-            for (let key in res) {
-                data.push({
-                    id: key,
-                    sendFrom: res[key].send_from,
-                    sendTo: res[key].send_to,
-                    subject: res[key].subject,
-                    message: res[key].value,
-                    read: false
-
-                })
-            }
-
-            if (selectedTab == 'Inbox') {
-                let userReceivedEmail = data.filter((mail) => {
-                    return mail.sendTo == email
-                })
-                dispatch(emailActions.addUserMail(userReceivedEmail))
-            } else if (selectedTab == 'Sent') {
-                let userSentEmail = data.filter((mail) => {
-                    return mail.sendFrom == email
-                })
-                dispatch(emailActions.addAllSentMail(userSentEmail))
-            }
-
-            dispatch(emailActions.reverseMail())
-
-
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
-
-    const deleteMail = async (id) => {
-        try {
-            console.log(id)
-            const response = await axios.delete(`https://newsday-io-default-rtdb.firebaseio.com/allMail/${id}.json`)
-            if (response.status == 200) {
-                alert('Mail deleted successfully!')
-                getUserMail()
-            }
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    const { getUserMail, deleteMail } = useMail()
 
 
     useEffect(() => {
@@ -72,7 +22,6 @@ const AllMail = () => {
             getUserMail()
         }, 2000);
         return () => {
-            // clean up
             clearInterval(intervalCall);
         };
     }, [])

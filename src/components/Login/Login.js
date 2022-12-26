@@ -26,7 +26,6 @@ const Login = () => {
 
                     }
                 })
-                console.log(response)
                 if (response.data.idToken) {
                     let token = response.data.idToken
                     let email = response.data.email

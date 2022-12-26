@@ -10,15 +10,16 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { emailActions } from '../../store/slice/email-slice';
+import useMail from '../../hooks/useMail';
 
 const SendMail = () => {
-    const [email, setEmail] = useState('')
-    const [subject, setSubject] = useState('')
-    const [value, setValue] = useState('');
+
     const [isSent, setIsSent] = useState(false)
+
+    const { storeMail, email, setEmail, value, setValue, subject, setSubject } = useMail()
+
     const token = useSelector((state) => state.auth.token)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+
     const onChange = (content, delta, source, editor) => {
         let text = editor.getText()
         setValue(text)
@@ -26,29 +27,7 @@ const SendMail = () => {
             setValue('')
         }
     }
-    const storeMail = async () => {
-        try {
-            let senderEmail = localStorage.getItem('email')
-            let splittedEmail = senderEmail.split('@')
-            var splitted = email.split("@");
-            let receiverName = splitted[0].replace(/\./g, "")
-            let mail = {
-                send_from: senderEmail,
-                send_to: email,
-                subject: subject,
-                value: value,
-                read: false
-            }
-            dispatch(emailActions.addSendToEmail(receiverName))
-            localStorage.setItem('sendToEmail', receiverName)
-            console.log(splitted[0] + "@" + splitted[1].replace(/\./g, ""));
-            const response = await axios.post(`https://newsday-io-default-rtdb.firebaseio.com/allMail.json`, mail)
 
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
     const sendEmail = (e) => {
         e.preventDefault()
         if (email != '' && subject != '' && value != '') {
@@ -66,6 +45,7 @@ const SendMail = () => {
                     window.location.reload(false)
 
                 })
+
                 .catch((err) => {
                     console.log(err)
                 })
