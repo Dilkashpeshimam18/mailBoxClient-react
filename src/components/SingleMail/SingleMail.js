@@ -32,21 +32,21 @@ const SingleMail = () => {
                 sendFrom: singleMail[key].sendFrom
             }
         }
-        handleIsRead()
+        // handleIsRead()
 
     }, [])
 
-    const handleIsRead = async () => {
-        try {
-            if (singleMail) {
-                const response = await axios.put(`https://newsday-io-default-rtdb.firebaseio.com/allMail/${params.id}.json`, singleMail)
-                console.log(response)
-            }
+    // const handleIsRead = async () => {
+    //     try {
+    //         if (singleMail) {
+    //             const response = await axios.put(`https://newsday-io-default-rtdb.firebaseio.com/allMail/${params.id}.json`, singleMail)
+    //             console.log(response)
+    //         }
 
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
     return (
         <div className='d-flex'>

@@ -39,12 +39,10 @@ const SendMail = () => {
                 value: value,
                 read: false
             }
-            console.log(mail)
             dispatch(emailActions.addSendToEmail(receiverName))
             localStorage.setItem('sendToEmail', receiverName)
             console.log(splitted[0] + "@" + splitted[1].replace(/\./g, ""));
             const response = await axios.post(`https://newsday-io-default-rtdb.firebaseio.com/allMail.json`, mail)
-            console.log(response)
 
         } catch (err) {
             console.log(err)

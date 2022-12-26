@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { emailActions } from '../../store/slice/email-slice';
 import { useNavigate } from 'react-router-dom'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 const AllMail = () => {
     const dispatch = useDispatch()
     const userMail = useSelector((state) => state.email.userMail)
@@ -18,7 +18,6 @@ const AllMail = () => {
             let email = localStorage.getItem('email')
             const response = await axios.get('https://newsday-io-default-rtdb.firebaseio.com/allMail.json')
             let res = response.data
-            console.log(res)
             let data = []
             for (let key in res) {
                 data.push({
@@ -45,29 +44,41 @@ const AllMail = () => {
 
     }
 
+    const deleteMail = async (id) => {
+        try {
+            console.log(id)
+            const response = await axios.delete(`https://newsday-io-default-rtdb.firebaseio.com/allMail/${id}.json`)
+            if (response.status == 200) {
+                alert('Mail deleted successfully!')
+                getUserMail()
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
 
     useEffect(() => {
         getUserMail()
     }, [])
     return (
         <ListGroup >
-            {userMail.length == 0 && <h2 className='p-3 m-2'>You don't have any mail yet!</h2>}
             {userMail.length != 0 && (
                 (userMail && userMail.map((mail, index) => {
                     return (
                         <ListGroup.Item
                             style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                                dispatch(emailActions.openRead())
-                                navigate('/inbox/' + mail.id)
-                            }}
+
                             className="d-flex listClass justify-content-between align-items-start "
 
                         >
                             <div className="ms-2 me-auto data">
                                 {mail.read == false && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
 
-                                <div className='m-2'>
+                                <div onClick={() => {
+                                    dispatch(emailActions.openRead())
+                                    navigate('/inbox/' + mail.id)
+                                }} className='m-2'>
                                     <div className="fw-bold">
                                         {mail.subject}
                                     </div>
@@ -76,6 +87,10 @@ const AllMail = () => {
 
                                     </div>
                                 </div>
+                                <div className='p-3'>
+                                    <DeleteIcon onClick={() => deleteMail(mail.id)} />
+
+                                </div>
 
                             </div>
 
@@ -83,6 +98,8 @@ const AllMail = () => {
                     )
                 }))
             )}
+            {userMail.length == 0 && <h2 className='p-3 m-2'>You don't have any mail yet!</h2>}
+
 
 
         </ListGroup>
