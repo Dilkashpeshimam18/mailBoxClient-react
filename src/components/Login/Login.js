@@ -1,49 +1,10 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { authActions } from '../../store/slice/auth-slice'
+import useAuth from '../../hooks/useAuth'
 
 const Login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const handleLogin = async (e) => {
-        e.preventDefault()
-        try {
-            if (email != '' && password != '') {
-                let data = {
-                    email: email,
-                    password: password,
-                    returnSecureToken: true
-                }
-                const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBbr840gxPXx5wIRgO2KsmQYQpwHJKG91s', data, {
-                    headers: {
-                        'Content-Type': 'application/json',
+    const { handleLogin, email, password, setEmail, setPassword } = useAuth()
 
-
-                    }
-                })
-                if (response.data.idToken) {
-                    let token = response.data.idToken
-                    let email = response.data.email
-                    localStorage.setItem('token', token)
-                    localStorage.setItem('email', email)
-                    dispatch(authActions.addToken(token))
-                    alert('Login Successful!')
-                    navigate('/')
-
-                }
-            }
-
-        } catch (err) {
-            console.log(err.message)
-            alert(err.response.data.error.message)
-
-        }
-    }
     return (
         <>
             <Container className='mt-5 ml-5 justify-content-center'>

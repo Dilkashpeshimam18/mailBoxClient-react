@@ -1,52 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Signup.css'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
 
 const Signup = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const navigate = useNavigate()
+    const { handleSignUp, email, setEmail, password, setPassword, confirmPassword, setConfirmPassword } = useAuth()
 
-    const isPasswordConfirmed = () => {
-        if (password && confirmPassword && password === confirmPassword) return true;
-        return false
-    }
-    const handleSignUp = async (e) => {
-        e.preventDefault()
-        try {
-            if (!isPasswordConfirmed(password, confirmPassword)) {
-                alert('Password & confirm password should be same!')
-            } else {
-                if (email != '' && password != '' && confirmPassword != '') {
-                    const data = {
-                        email: email,
-                        password: password,
-                        returnSecureToken: true
-
-                    }
-                    const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBbr840gxPXx5wIRgO2KsmQYQpwHJKG91s', data, {
-                        headers: {
-                            'Content-Type': 'application/json',
-
-                        }
-                    })
-
-                    setEmail('')
-                    setPassword('')
-                    setConfirmPassword('')
-
-                    alert('Signup Successful!')
-                    navigate('/login')
-                }
-            }
-        } catch (err) {
-            console.log(err.message)
-            alert(err.response.data.error.message)
-        }
-    }
     return (
         <>
             <Container className='mt-5 ml-5 justify-content-center'>
