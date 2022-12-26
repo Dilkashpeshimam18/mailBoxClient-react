@@ -27,6 +27,9 @@ const EmailSlice = createSlice({
         },
         closeRead(state) {
             state.isRead = false
+        },
+        reverseMail(state, action) {
+            state.userMail = state.userMail.reverse()
         }
 
     }

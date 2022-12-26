@@ -44,7 +44,7 @@ const AllMail = () => {
                 dispatch(emailActions.addAllSentMail(userSentEmail))
             }
 
-
+            dispatch(emailActions.reverseMail())
 
 
         } catch (err) {
@@ -68,7 +68,13 @@ const AllMail = () => {
 
 
     useEffect(() => {
-        getUserMail()
+        const intervalCall = setInterval(() => {
+            getUserMail()
+        }, 2000);
+        return () => {
+            // clean up
+            clearInterval(intervalCall);
+        };
     }, [])
     return (
         <ListGroup >
