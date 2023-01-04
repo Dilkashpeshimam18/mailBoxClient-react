@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Sidebar from '../Sidebar/Sidebar'
-import { Container, Row, Col } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import axios from 'axios'
+import './SingleMail.css'
 
 const SingleMail = () => {
     const [mail, setMail] = useState({})
     const params = useParams()
     const userMail = useSelector(state => state.email.userMail)
-    const isRead = useSelector(state => state.email.isRead)
     let singleMail;
     useEffect(() => {
 
@@ -32,37 +30,28 @@ const SingleMail = () => {
                 sendFrom: singleMail[key].sendFrom
             }
         }
-        // handleIsRead()
 
     }, [])
 
-    // const handleIsRead = async () => {
-    //     try {
-    //         if (singleMail) {
-    //             const response = await axios.put(`https://newsday-io-default-rtdb.firebaseio.com/allMail/${params.id}.json`, singleMail)
-    //             console.log(response)
-    //         }
 
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
 
     return (
         <div className='d-flex'>
-            <Container>
+            <div style={{ paddingLeft: 0 }}>
                 <Sidebar />
-            </Container>
-            <Container>
-                <Row>
-                    <Col fluid>
-                        <h3>{mail?.subject}</h3>
-                        <p>{mail?.message}</p>
-                    </Col>
-                </Row>
+            </div>
+            <div className='singleMail__container'>
+                <div>
+                    <h3>{mail?.subject}</h3>
 
+                    <p style={{ fontWeight: 'bold', paddingTop: '5px' }}>From : {mail?.sendFrom}</p>
+                    <span>To : {mail?.sendTo}</span>
+                </div>
+                <div className='singleMail__message'>
+                    <p>{mail?.message}</p>
 
-            </Container>
+                </div>
+            </div>
         </div>
     )
 }
