@@ -41,19 +41,25 @@ const AllMail = () => {
                         >
                             <div className="ms-2 me-auto data ">
 
-                                {mail.read == false && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
 
                                 <div onClick={() => {
                                     handleIsReadMail(mail.id)
                                     navigate('/inbox/' + mail.id)
-                                }} className='m-2'>
-                                    <div className="fw-bold">
-                                        {mail.subject}
-                                    </div>
+                                }} className='m-2 d-flex'>
                                     <div>
-                                        {mail.message}
+                                        {mail.read == false && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
 
                                     </div>
+                                    <div>
+                                        <div className="fw-bold">
+                                            {mail.subject}
+                                        </div>
+                                        <div>
+                                            {mail.message}
+
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div className='p-3'>
                                     <DeleteIcon onClick={() => deleteMail(mail.id)} />

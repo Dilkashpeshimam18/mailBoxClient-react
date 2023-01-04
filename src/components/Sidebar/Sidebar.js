@@ -12,6 +12,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleIsSelectedTab } from '../../store/slice/home-slice';
+import MarkEmailUnreadIcon from '@mui/icons-material/MarkEmailUnread';
+import SendIcon from '@mui/icons-material/Send';
+import InboxIcon from '@mui/icons-material/Inbox';
+import StarIcon from '@mui/icons-material/Star';
+import ReportIcon from '@mui/icons-material/Report';
 
 const Sidebar = () => {
     const navigate = useNavigate()
@@ -40,9 +45,10 @@ const Sidebar = () => {
                 <CDBSidebarContent className="sidebar-content">
                     <CDBSidebarMenu>
                         <NavLink exact to="/" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Inbox'))} icon="inbox">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Inbox'))} >
                                 <Container>
                                     <Row >
+                                        <Col xs={2}><InboxIcon /></Col>
                                         <Col >Inbox</Col>
                                         <Col>{unreadMessage}</Col>
                                     </Row>
@@ -51,27 +57,30 @@ const Sidebar = () => {
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/tables" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Unread'))} icon="table">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Unread'))} >
                                 <Container>
                                     <Row>
+                                        <Col xs={2}><MarkEmailUnreadIcon /></Col>
                                         <Col>Unread</Col>
                                     </Row>
                                 </Container>
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/sent-mail" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Sent'))} icon="user">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Sent'))} >
                                 <Container>
                                     <Row>
+                                        <Col xs={2}><SendIcon /></Col>
                                         <Col>Sent</Col>
                                     </Row>
                                 </Container>
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/analytics" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Starred'))} icon="chart-line">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Starred'))}>
                                 <Container>
                                     <Row>
+                                        <Col xs={2}><StarIcon /></Col>
                                         <Col>Starred</Col>
                                     </Row>
                                 </Container>
@@ -84,9 +93,10 @@ const Sidebar = () => {
                             target="_blank"
                             activeClassName="activeClicked"
                         >
-                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Spam'))} icon="exclamation-circle">
+                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Spam'))} >
                                 <Container>
                                     <Row>
+                                        <Col xs={2}><ReportIcon /></Col>
                                         <Col>
                                             Spam
 
