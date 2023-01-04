@@ -9,6 +9,8 @@ const useMail = () => {
     const [value, setValue] = useState('');
     const dispatch = useDispatch()
     const selectedTab = useSelector(state => state.home.isSeletedTab)
+    const userMail = useSelector((state) => state.email.userMail)
+
 
     const getUserMail = async (type) => {
         try {
@@ -20,11 +22,12 @@ const useMail = () => {
             for (let key in res) {
                 data.push({
                     id: key,
-                    sendFrom: res[key].send_from,
-                    sendTo: res[key].send_to,
+                    sendFrom: res[key].sendFrom,
+                    sendTo: res[key].sendTo,
                     subject: res[key].subject,
-                    message: res[key].value,
-                    read: false
+                    message: res[key].message,
+                    read: res[key].read
+
 
                 })
             }
@@ -62,6 +65,34 @@ const useMail = () => {
         }
     }
 
+    const handleIsReadMail = async (id) => {
+        let unreadIndex = userMail.findIndex((email) => email.id === id)
+        let unreadMail = userMail[unreadIndex]
+        let updatedMail;
+        let updatedAllMails
+        if (unreadMail) {
+            updatedMail = {
+                ...unreadMail,
+                read: true
+            }
+
+        }
+        updatedAllMails = [...userMail]
+        updatedAllMails[unreadIndex] = updatedMail
+        dispatch(emailActions.updateUserMail(updatedAllMails))
+        try {
+            const response = await axios.put(`https://newsday-io-default-rtdb.firebaseio.com/allMail/${id}.json`, updatedMail)
+                .then(() => {
+                    getUserMail()
+                })
+
+
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
     const storeMail = async () => {
         try {
             let senderEmail = localStorage.getItem('email')
@@ -69,10 +100,10 @@ const useMail = () => {
             let splitted = email.split("@");
             let receiverName = splitted[0].replace(/\./g, "")
             let mail = {
-                send_from: senderEmail,
-                send_to: email,
+                sendFrom: senderEmail,
+                sendTo: email,
                 subject: subject,
-                value: value,
+                message: value,
                 read: false
             }
             dispatch(emailActions.addSendToEmail(receiverName))
@@ -84,6 +115,6 @@ const useMail = () => {
         }
 
     }
-    return { getUserMail, deleteMail, storeMail, email, setEmail, value, setValue, subject, setSubject }
+    return { getUserMail, deleteMail, storeMail, email, setEmail, value, setValue, subject, setSubject, handleIsReadMail }
 }
 export default useMail;

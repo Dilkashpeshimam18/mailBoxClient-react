@@ -30,6 +30,9 @@ const EmailSlice = createSlice({
         },
         reverseMail(state, action) {
             state.userMail = state.userMail.reverse()
+        },
+        updateUserMail(state, action) {
+            state.userMail = action.payload
         }
 
     }

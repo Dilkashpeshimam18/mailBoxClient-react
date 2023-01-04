@@ -12,9 +12,11 @@ import useMail from '../../hooks/useMail';
 const AllMail = () => {
     const dispatch = useDispatch()
     const userMail = useSelector((state) => state.email.userMail)
+    const isRead = useSelector((state) => state.email.isRead)
     const navigate = useNavigate()
     const selectedTab = useSelector(state => state.home.isSeletedTab)
-    const { getUserMail, deleteMail } = useMail()
+    const { getUserMail, deleteMail, handleIsReadMail } = useMail()
+
 
 
     useEffect(() => {
@@ -24,6 +26,7 @@ const AllMail = () => {
         return () => {
             clearInterval(intervalCall);
         };
+
     }, [])
     return (
         <ListGroup >
@@ -37,10 +40,11 @@ const AllMail = () => {
 
                         >
                             <div className="ms-2 me-auto data">
+
                                 {mail.read == false && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
 
                                 <div onClick={() => {
-                                    dispatch(emailActions.openRead())
+                                    handleIsReadMail(mail.id)
                                     navigate('/inbox/' + mail.id)
                                 }} className='m-2'>
                                     <div className="fw-bold">
