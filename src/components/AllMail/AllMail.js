@@ -39,7 +39,7 @@ const AllMail = () => {
                             className="d-flex listClass justify-content-between align-items-start "
 
                         >
-                            <div className="ms-2 me-auto data">
+                            <div className="ms-2 me-auto data ">
 
                                 {mail.read == false && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
 

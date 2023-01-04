@@ -1,7 +1,11 @@
 .listClass {
+  display: flex;
+
   width: 1420px;
   min-width: 400px;
 }
 .data {
   display: flex;
+  flex: 1;
+  justify-content: space-between;
 }
