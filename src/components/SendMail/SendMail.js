@@ -30,28 +30,33 @@ const SendMail = () => {
 
     const sendEmail = (e) => {
         e.preventDefault()
-        if (email != '' && subject != '' && value != '') {
-            let values = {
-                from_name: 'dilkashpeshimam@gmail.com',
-                to_name: email,
-                subject: subject,
-                message: value
-            }
-            emailjs.send('service_xh7xax8', 'template_xsgs1nf', values, 'xlO1TUS4HkUawigyq')
-                .then(() => {
-                    setIsSent(true)
-                    storeMail()
-                    alert('Email sent sucessfully!')
-                    window.location.reload(false)
-
-                })
-
-                .catch((err) => {
-                    console.log(err)
-                })
+        if (token == null) {
+            alert('You need to login first!')
         } else {
-            alert('Please fill all the fields!')
+            if (email != '' && subject != '' && value != '') {
+                let values = {
+                    from_name: 'dilkashpeshimam@gmail.com',
+                    to_name: email,
+                    subject: subject,
+                    message: value
+                }
+                emailjs.send('service_xh7xax8', 'template_xsgs1nf', values, 'xlO1TUS4HkUawigyq')
+                    .then(() => {
+                        setIsSent(true)
+                        storeMail()
+                        alert('Email sent sucessfully!')
+                        window.location.reload(false)
+
+                    })
+
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            } else {
+                alert('Please fill all the fields!')
+            }
         }
+
     }
 
 

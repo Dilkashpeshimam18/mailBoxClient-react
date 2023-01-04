@@ -40,7 +40,16 @@ const SingleMail = () => {
             <div style={{ paddingLeft: 0 }}>
                 <Sidebar />
             </div>
-            <div className='singleMail__container'>
+            {!mail?.sendTo && !mail.sendFrom && !mail.message ? <>
+                <div className='singleMail__container'>
+                    <div>
+                        <h3>{mail?.subject}</h3>
+
+
+                    </div>
+
+                </div>
+            </> : <div className='singleMail__container'>
                 <div>
                     <h3>{mail?.subject}</h3>
 
@@ -51,7 +60,8 @@ const SingleMail = () => {
                     <p>{mail?.message}</p>
 
                 </div>
-            </div>
+            </div>}
+
         </div>
     )
 }
