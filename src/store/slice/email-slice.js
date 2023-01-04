@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialEmailState = {
     sendToEmail: localStorage.getItem('sendToEmail') || '',
     userMail: [],
-    isRead: false
+    isRead: false,
+    isLoading: false
 
 }
 
@@ -36,6 +37,9 @@ const EmailSlice = createSlice({
         },
         updateUserMail(state, action) {
             state.userMail = action.payload
+        },
+        handleLoading(state, action) {
+            state.isLoading = action.payload
         }
 
     }

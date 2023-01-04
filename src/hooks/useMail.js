@@ -14,7 +14,6 @@ const useMail = () => {
 
     const getUserMail = async (type) => {
         try {
-
             let email = localStorage.getItem('email')
             const response = await axios.get('https://newsday-io-default-rtdb.firebaseio.com/allMail.json')
             let res = response.data
@@ -37,16 +36,22 @@ const useMail = () => {
                     return mail.sendTo == email
                 })
                 dispatch(emailActions.addUserMail(userReceivedEmail))
+                dispatch(emailActions.handleLoading(false))
+
             } else if (selectedTab == 'Sent') {
                 let userSentEmail = data.filter((mail) => {
                     return mail.sendFrom == email
                 })
                 dispatch(emailActions.addAllSentMail(userSentEmail))
+                dispatch(emailActions.handleLoading(false))
+
             } else if (selectedTab == 'Unread') {
                 let userUnreadMail = data.filter((mail) => {
                     return mail.read == false
                 })
                 dispatch(emailActions.addAllUnreadMail(userUnreadMail))
+                dispatch(emailActions.handleLoading(false))
+
 
             }
 

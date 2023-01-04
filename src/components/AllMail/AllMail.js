@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useMail from '../../hooks/useMail';
+import CircularProgress from '@mui/material/CircularProgress';
+
+
 const AllMail = () => {
     const dispatch = useDispatch()
     const userMail = useSelector((state) => state.email.userMail)
@@ -16,6 +19,7 @@ const AllMail = () => {
     const navigate = useNavigate()
     const selectedTab = useSelector(state => state.home.isSeletedTab)
     const { getUserMail, deleteMail, handleIsReadMail } = useMail()
+    const isLoading = useSelector(state => state.email.isLoading)
 
 
 
@@ -28,53 +32,63 @@ const AllMail = () => {
         };
 
     }, [])
+
     useEffect(() => {
+        dispatch(emailActions.handleLoading(true))
     }, [])
     return (
         <ListGroup >
-            {userMail.length != 0 && (
-                (userMail && userMail.map((mail, index) => {
-                    return (
-                        <ListGroup.Item
-                            style={{ cursor: 'pointer' }}
+            {isLoading == true && <div style={{ display: 'flex', alignItem: 'center', justifyContent: 'center', padding: '20px', marginLeft: '600px', marginTop: '10px' }}>
 
-                            className="d-flex listClass justify-content-between align-items-start "
+                <CircularProgress />
+            </div>}
+            {isLoading == false && <>
+                {userMail.length != 0 && (
+                    (userMail && userMail.map((mail, index) => {
+                        return (
+                            <ListGroup.Item
+                                style={{ cursor: 'pointer' }}
 
-                        >
-                            <div className="ms-2 me-auto data ">
+                                className="d-flex listClass justify-content-between align-items-start "
+
+                            >
+                                <div className="ms-2 me-auto data ">
 
 
-                                <div onClick={() => {
-                                    handleIsReadMail(mail.id)
-                                    navigate('/inbox/' + mail.id)
-                                }} className='m-2 d-flex'>
-                                    <div>
-                                        {mail.read == false && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
+                                    <div onClick={() => {
+                                        handleIsReadMail(mail.id)
+                                        navigate('/inbox/' + mail.id)
+                                    }} className='m-2 d-flex'>
+                                        <div>
+                                            {mail.read == false && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
 
-                                    </div>
-                                    <div>
-                                        <div className="fw-bold">
-                                            {mail.subject}
                                         </div>
                                         <div>
-                                            {mail.message}
+                                            <div className="fw-bold">
+                                                {mail.subject}
+                                            </div>
+                                            <div>
+                                                {mail.message}
 
+                                            </div>
                                         </div>
+
+                                    </div>
+                                    <div className='p-3'>
+                                        <DeleteIcon onClick={() => deleteMail(mail.id)} />
+
                                     </div>
 
                                 </div>
-                                <div className='p-3'>
-                                    <DeleteIcon onClick={() => deleteMail(mail.id)} />
 
-                                </div>
+                            </ListGroup.Item>
+                        )
+                    }))
+                )}
+                {userMail.length == 0 && <h2 className='p-3 m-2'>You don't have any mail yet!</h2>}
 
-                            </div>
+            </>}
 
-                        </ListGroup.Item>
-                    )
-                }))
-            )}
-            {userMail.length == 0 && <h2 className='p-3 m-2'>You don't have any mail yet!</h2>}
 
 
 

@@ -15,7 +15,6 @@ import { handleIsSelectedTab } from '../../store/slice/home-slice';
 import MarkEmailUnreadIcon from '@mui/icons-material/MarkEmailUnread';
 import SendIcon from '@mui/icons-material/Send';
 import InboxIcon from '@mui/icons-material/Inbox';
-import StarIcon from '@mui/icons-material/Star';
 import ReportIcon from '@mui/icons-material/Report';
 
 const Sidebar = () => {
@@ -76,20 +75,10 @@ const Sidebar = () => {
                                 </Container>
                             </CDBSidebarMenuItem>
                         </NavLink>
-                        <NavLink exact to="/analytics" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Starred'))}>
-                                <Container>
-                                    <Row>
-                                        <Col xs={2}><StarIcon /></Col>
-                                        <Col>Starred</Col>
-                                    </Row>
-                                </Container>
-                            </CDBSidebarMenuItem>
-                        </NavLink>
 
                         <NavLink
                             exact
-                            to="/hero404"
+                            to="/"
                             target="_blank"
                             activeClassName="activeClicked"
                         >
