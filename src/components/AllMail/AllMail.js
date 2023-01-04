@@ -28,6 +28,8 @@ const AllMail = () => {
         };
 
     }, [])
+    useEffect(() => {
+    }, [])
     return (
         <ListGroup >
             {userMail.length != 0 && (

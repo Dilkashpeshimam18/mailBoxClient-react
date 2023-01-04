@@ -56,7 +56,7 @@ const Sidebar = () => {
 
                             </CDBSidebarMenuItem>
                         </NavLink>
-                        <NavLink exact to="/tables" activeClassName="activeClicked">
+                        <NavLink exact to="/unread-mail" activeClassName="activeClicked">
                             <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Unread'))} >
                                 <Container>
                                     <Row>

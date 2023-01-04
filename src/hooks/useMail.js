@@ -42,7 +42,14 @@ const useMail = () => {
                     return mail.sendFrom == email
                 })
                 dispatch(emailActions.addAllSentMail(userSentEmail))
+            } else if (selectedTab == 'Unread') {
+                let userUnreadMail = data.filter((mail) => {
+                    return mail.read == false
+                })
+                dispatch(emailActions.addAllUnreadMail(userUnreadMail))
+
             }
+
 
             dispatch(emailActions.reverseMail())
 

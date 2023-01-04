@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import ComposeMail from './components/ComposeMail/ComposeMail';
 import SingleMail from './components/SingleMail/SingleMail';
 import AllSentMail from './components/AllSentMail/AllSentMail';
+import AllUnreadMail from './components/AllUnreadMail/AllUnreadMail';
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path='/compose' element={<ComposeMail />} />
         <Route path='/inbox/:id' element={<SingleMail />} />
         <Route path='/sent-mail' element={<AllSentMail />} />
+        <Route path='/unread-mail' element={<AllUnreadMail />} />
+
       </Routes>
     </div>
   );

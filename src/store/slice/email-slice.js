@@ -22,6 +22,9 @@ const EmailSlice = createSlice({
         addAllSentMail(state, action) {
             state.userMail = action.payload
         },
+        addAllUnreadMail(state, action) {
+            state.userMail = action.payload
+        },
         openRead(state) {
             state.isRead = true
         },
