@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import useAuth from '../../hooks/useAuth'
+import { Link } from "react-router-dom"
 
 const Login = () => {
     const { handleLogin, email, password, setEmail, setPassword } = useAuth()
@@ -9,7 +10,7 @@ const Login = () => {
         <>
             <Container className='mt-5 ml-5 justify-content-center'>
                 <Row className='d-flex justify-content-center'>
-                    <Col xs={5} >
+                    <Col sm={5} >
                         <Card className='shadow-lg'>
                             <Card.Header className='p-3 text-center display-6'>LOGIN</Card.Header>
                             <Card.Body>
@@ -29,6 +30,8 @@ const Login = () => {
                                 </Form>
                             </Card.Body>
                         </Card>
+                        <p style={{ fontSize: '12px', marginTop: '5px' }}>Don't have an acount? <Link to='/sign-up'>SIGN UP</Link></p>
+
                     </Col>
                 </Row>
             </Container>

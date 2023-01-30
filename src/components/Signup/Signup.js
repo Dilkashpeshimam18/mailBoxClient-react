@@ -2,6 +2,7 @@ import React from 'react'
 import './Signup.css'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import useAuth from '../../hooks/useAuth'
+import { Link } from "react-router-dom"
 
 const Signup = () => {
     const { handleSignUp, email, setEmail, password, setPassword, confirmPassword, setConfirmPassword } = useAuth()
@@ -10,7 +11,7 @@ const Signup = () => {
         <>
             <Container className='mt-5 ml-5 justify-content-center'>
                 <Row className='d-flex justify-content-center'>
-                    <Col xs={5} >
+                    <Col sm={5} >
                         <Card className='shadow-lg'>
                             <Card.Header className='p-3 text-center display-6'>SIGN UP</Card.Header>
                             <Card.Body>
@@ -33,6 +34,8 @@ const Signup = () => {
                                 </Form>
                             </Card.Body>
                         </Card>
+                        <p style={{ fontSize: '12px', marginTop: '5px' }}>Already have an acount? <Link to='/login'>LOGIN</Link></p>
+
                     </Col>
                 </Row>
             </Container>

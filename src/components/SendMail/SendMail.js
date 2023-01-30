@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { emailActions } from '../../store/slice/email-slice';
 import useMail from '../../hooks/useMail';
+import { Container, Row, Col } from 'react-bootstrap'
+
 
 const SendMail = () => {
 
@@ -61,41 +63,43 @@ const SendMail = () => {
 
 
     return (
-        <div className='sendMail'>
-            <div className='sendMail__container1'>
-                <div className='sendMail__subContainer'>
+        <>
+            <Container className='mt-5 ml-5 justify-content-center'>
+                <Row className='d-flex justify-content-center'>
+                    <Col sm={6} >
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text variant='primary' id="basic-addon1">To</InputGroup.Text>
+                            <Form.Control
+                                placeholder="Recipients"
+                                aria-label="Recipients"
+                                aria-describedby="basic-addon1"
+                                value={email}
+                                name='to_name'
+                                onChange={(e) => { setEmail(e.target.value) }}
+                                required
+                            />
+                        </InputGroup>
+                        <div className='sendMail__subContainer'>
 
-                    <InputGroup className="mb-3">
-                        <InputGroup.Text variant='primary' id="basic-addon1">To</InputGroup.Text>
-                        <Form.Control
-                            placeholder="Recipients"
-                            aria-label="Recipients"
-                            aria-describedby="basic-addon1"
-                            value={email}
-                            name='to_name'
-                            onChange={(e) => { setEmail(e.target.value) }}
-                            required
-                        />
-                    </InputGroup>
-                </div>
-                <div className='sendMail__subContainer'>
+                            <InputGroup>
+                                <InputGroup.Text>Subject</InputGroup.Text>
+                                <Form.Control placeholder='Add Subject' aria-label="With textarea" value={subject} onChange={(e) => { setSubject(e.target.value) }} required />
+                            </InputGroup>
+                        </div>
 
-                    <InputGroup>
-                        <InputGroup.Text>Subject</InputGroup.Text>
-                        <Form.Control placeholder='Add Subject' aria-label="With textarea" value={subject} onChange={(e) => { setSubject(e.target.value) }} required />
-                    </InputGroup>
-                </div>
 
-            </div>
+                        <div className='sendMail__container2 mb-5'>
+                            <Editor value={value} setValue={setValue} onChange={onChange} />
 
-            <div className='sendMail__container2'>
-                <Editor value={value} setValue={setValue} onChange={onChange} />
+                        </div>
+                        <div style={{ paddingTop: '15px' }} className='d-grid gap-2 mt-5'>
+                            <Button onClick={sendEmail} size='lg'>SEND MAIL</Button>
+                        </div>
+                    </Col>
+                </Row>
 
-            </div>
-            <div style={{ paddingTop: '15px' }} className='d-grid gap-2 mt-5'>
-                <Button onClick={sendEmail} size='lg'>SEND MAIL</Button>
-            </div>
-        </div>
+            </Container>
+        </>
     )
 }
 

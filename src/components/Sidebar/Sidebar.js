@@ -16,7 +16,7 @@ import MarkEmailUnreadIcon from '@mui/icons-material/MarkEmailUnread';
 import SendIcon from '@mui/icons-material/Send';
 import InboxIcon from '@mui/icons-material/Inbox';
 import ReportIcon from '@mui/icons-material/Report';
-
+import './Sidebar.css'
 const Sidebar = () => {
     const navigate = useNavigate()
     const userMail = useSelector(state => state.email.userMail)
@@ -27,9 +27,10 @@ const Sidebar = () => {
     }).length
     return (
         <div
+            className='sidebar'
             style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}
         >
-            <CDBSidebar textColor="#2c3e50" backgroundColor="rgba(68,96,170,.07)">
+            <CDBSidebar textColor="#2c3e50" backgroundColor="rgba(68,96,170,.07)" className='sidebar'>
                 <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
                     <a
 
