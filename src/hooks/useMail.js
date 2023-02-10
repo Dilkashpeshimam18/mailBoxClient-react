@@ -64,6 +64,7 @@ const useMail = () => {
 
         } catch (err) {
             console.log(err)
+            alert(err)
         }
 
     }
@@ -77,6 +78,8 @@ const useMail = () => {
             }
         } catch (err) {
             console.log(err)
+            alert(err)
+
         }
     }
 
@@ -104,6 +107,8 @@ const useMail = () => {
 
         } catch (err) {
             console.log(err)
+            alert(err)
+
         }
 
     }
@@ -111,7 +116,6 @@ const useMail = () => {
     const storeMail = async () => {
         try {
             let senderEmail = localStorage.getItem('email')
-            let splittedEmail = senderEmail.split('@')
             let splitted = email.split("@");
             let receiverName = splitted[0].replace(/\./g, "")
             let mail = {
@@ -127,6 +131,8 @@ const useMail = () => {
 
         } catch (err) {
             console.log(err)
+            alert(err)
+
         }
 
     }

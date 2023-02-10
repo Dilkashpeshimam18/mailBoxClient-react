@@ -15,8 +15,7 @@ import { handleIsSelectedTab } from '../../store/slice/home-slice';
 import MarkEmailUnreadIcon from '@mui/icons-material/MarkEmailUnread';
 import SendIcon from '@mui/icons-material/Send';
 import InboxIcon from '@mui/icons-material/Inbox';
-import ReportIcon from '@mui/icons-material/Report';
-import './Sidebar.css'
+
 const Sidebar = () => {
     const navigate = useNavigate()
     const userMail = useSelector(state => state.email.userMail)

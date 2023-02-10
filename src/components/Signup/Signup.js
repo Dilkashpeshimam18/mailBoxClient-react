@@ -1,5 +1,4 @@
 import React from 'react'
-import './Signup.css'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import useAuth from '../../hooks/useAuth'
 import { Link } from "react-router-dom"

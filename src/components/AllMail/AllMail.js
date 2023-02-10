@@ -15,12 +15,9 @@ import useAuth from '../../hooks/useAuth';
 const AllMail = () => {
     const dispatch = useDispatch()
     const userMail = useSelector((state) => state.email.userMail)
-    const isRead = useSelector((state) => state.email.isRead)
     const navigate = useNavigate()
-    const selectedTab = useSelector(state => state.home.isSeletedTab)
     const { getUserMail, deleteMail, handleIsReadMail } = useMail()
     const isLoading = useSelector(state => state.email.isLoading)
-    const { email } = useAuth()
     let userEmail = localStorage.getItem('email')
 
 
@@ -38,10 +35,7 @@ const AllMail = () => {
         dispatch(emailActions.handleLoading(true))
     }, [])
 
-    useEffect(() => {
-        console.log(userMail)
-        console.log(userEmail)
-    }, [])
+
     return (
         <ListGroup >
             {isLoading == true && <div style={{ display: 'flex', alignItem: 'center', justifyContent: 'center', padding: '20px', marginLeft: '600px', marginTop: '10px' }}>
@@ -94,9 +88,6 @@ const AllMail = () => {
                 {userMail.length == 0 && <h2 className='p-3 m-2'>You don't have any mail yet!</h2>}
 
             </>}
-
-
-
 
         </ListGroup>
 
