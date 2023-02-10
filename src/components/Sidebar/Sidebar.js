@@ -77,24 +77,6 @@ const Sidebar = () => {
                             </CDBSidebarMenuItem>
                         </NavLink>
 
-                        <NavLink
-                            exact
-                            to="/"
-                            target="_blank"
-                            activeClassName="activeClicked"
-                        >
-                            <CDBSidebarMenuItem onClick={() => dispatch(handleIsSelectedTab('Spam'))} >
-                                <Container>
-                                    <Row>
-                                        <Col xs={2}><ReportIcon /></Col>
-                                        <Col>
-                                            Spam
-
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            </CDBSidebarMenuItem>
-                        </NavLink>
                     </CDBSidebarMenu>
                 </CDBSidebarContent>
             </CDBSidebar>

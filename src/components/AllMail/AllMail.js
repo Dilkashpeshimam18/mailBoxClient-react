@@ -10,7 +10,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useMail from '../../hooks/useMail';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import useAuth from '../../hooks/useAuth';
 
 const AllMail = () => {
     const dispatch = useDispatch()
@@ -20,7 +20,8 @@ const AllMail = () => {
     const selectedTab = useSelector(state => state.home.isSeletedTab)
     const { getUserMail, deleteMail, handleIsReadMail } = useMail()
     const isLoading = useSelector(state => state.email.isLoading)
-
+    const { email } = useAuth()
+    let userEmail = localStorage.getItem('email')
 
 
     useEffect(() => {
@@ -35,6 +36,11 @@ const AllMail = () => {
 
     useEffect(() => {
         dispatch(emailActions.handleLoading(true))
+    }, [])
+
+    useEffect(() => {
+        console.log(userMail)
+        console.log(userEmail)
     }, [])
     return (
         <ListGroup >
@@ -60,7 +66,7 @@ const AllMail = () => {
                                         navigate('/inbox/' + mail.id)
                                     }} className='m-2 d-flex'>
                                         <div>
-                                            {mail.read == false && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
+                                            {mail.read == false && mail.sendFrom != userEmail && <FiberManualRecordIcon className='mt-3 p-1' sx={{ color: '#007FFF' }} />}
 
                                         </div>
                                         <div>

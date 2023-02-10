@@ -49,7 +49,10 @@ const useMail = () => {
                 let userUnreadMail = data.filter((mail) => {
                     return mail.read == false
                 })
-                dispatch(emailActions.addAllUnreadMail(userUnreadMail))
+                let allUnread = userUnreadMail.filter((mail) => {
+                    return mail.sendFrom != email
+                })
+                dispatch(emailActions.addAllUnreadMail(allUnread))
                 dispatch(emailActions.handleLoading(false))
 
 
